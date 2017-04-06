@@ -8,3 +8,6 @@ gocode -s -debug
 
 Please, report bugs, feature suggestions and other rants to the github issue tracker of this project.
 from:https://github.com/nsf/gocode
+
+第二个：excel 导入及xlsx2csv
+url:https://github.com/tealeg/xlsx
