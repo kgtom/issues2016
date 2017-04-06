@@ -1,79 +1,79 @@
----Ë÷Òý´íÎó
+---ç´¢å¼•é”™è¯¯
 ALTER SEQUENCE "Supplier_SupplierId_seq" RESTART WITH 1
 
----ÀûÈóÍ³¼Æ±íµ¼³ö(º¬ÈËÊý)
-select "Id" ÀûÈóµ¥ºÅ,"ObjId" ÒµÎñµ¥ºÅ ,"Supplier"->>'Name' ¹©Ó¦ÉÌ,"PayType"->>'Name' Ö§¸¶·½Ê½
+---åˆ©æ¶¦ç»Ÿè®¡è¡¨å¯¼å‡º(å«äººæ•°)
+select "Id" åˆ©æ¶¦å•å·,"ObjId" ä¸šåŠ¡å•å· ,"Supplier"->>'Name' ä¾›åº”å•†,"PayType"->>'Name' æ”¯ä»˜æ–¹å¼
 	,(case "Type"
-		when 5 then '¹úÄÚÍÅ¶Ó'
-		when 6 then '¹úÄÚÉ¢¿Í'
-		when 9 then '³ö¾³ÍÅ¶Ó'
-		when 10 then '³ö¾³É¢¿Í'
-		when 50 then '¼Æ»®Î»'
-		else 'ÆäËü' end) ¶©µ¥Àà±ð
+		when 5 then 'å›½å†…å›¢é˜Ÿ'
+		when 6 then 'å›½å†…æ•£å®¢'
+		when 9 then 'å‡ºå¢ƒå›¢é˜Ÿ'
+		when 10 then 'å‡ºå¢ƒæ•£å®¢'
+		when 50 then 'è®¡åˆ’ä½'
+		else 'å…¶å®ƒ' end) è®¢å•ç±»åˆ«
 	,(case "Category" 
-		when 1 then '³öÆ±µ¥' 
-		when 2 then 'ÍËÆ±µ¥' 
-		when 4 then '¸ÄÆÚµ¥'
-		when 8 then '»ð³µÆ±'
-		when 16 then 'Ñº½ð'
-		when 32 then 'µ÷ÕËµ¥'
-		when 64 then '·ÏÆ±µ¥'
-		when 128 then 'ÆäËüÀà¶©µ¥'
-		when 256 then '¿Í»§ºó·µ'
-		when 1024 then 'ACMÀûÈóµ¥'
-		when 2048 then 'Ñº½ðÀûÈóµ¥'
-		else text("Category") end) µ¥¾ÝÀà±ð,"PaymentAmount" Ó¦¸¶,"IssuePayable" Êµ¸¶
-	,"ReturnAmount" ºó·µ,date("IssueTime")
-	,extract_ticketnumber_from_pnr("PNR") Æ±ºÅ
-	,query_first_departure_time("PNR") Ê×º½°àÈÕÆÚ
-	,substr((extract_ticketnumber_from_pnr("PNR"))[1],1,3) ´úÂë,"TicketNumberCount" ÕÅÊý
+		when 1 then 'å‡ºç¥¨å•' 
+		when 2 then 'é€€ç¥¨å•' 
+		when 4 then 'æ”¹æœŸå•'
+		when 8 then 'ç«è½¦ç¥¨'
+		when 16 then 'æŠ¼é‡‘'
+		when 32 then 'è°ƒè´¦å•'
+		when 64 then 'åºŸç¥¨å•'
+		when 128 then 'å…¶å®ƒç±»è®¢å•'
+		when 256 then 'å®¢æˆ·åŽè¿”'
+		when 1024 then 'ACMåˆ©æ¶¦å•'
+		when 2048 then 'æŠ¼é‡‘åˆ©æ¶¦å•'
+		else text("Category") end) å•æ®ç±»åˆ«,"PaymentAmount" åº”ä»˜,"IssuePayable" å®žä»˜
+	,"ReturnAmount" åŽè¿”,date("IssueTime")
+	,extract_ticketnumber_from_pnr("PNR") ç¥¨å·
+	,query_first_departure_time("PNR") é¦–èˆªç­æ—¥æœŸ
+	,substr((extract_ticketnumber_from_pnr("PNR"))[1],1,3) ä»£ç ,"TicketNumberCount" å¼ æ•°
 	,
 	
 	
- json_array_length(unnest("PNR")->'Passenger') ÈËÊý
+ json_array_length(unnest("PNR")->'Passenger') äººæ•°
 from "TheTickets"
 where date("IssueTime") between date'2016-01-01' and date'2016-03-31'
 
--- ÐÞ¸Ä ÍÆËÍ ÂÒÂë
+-- ä¿®æ”¹ æŽ¨é€ ä¹±ç 
 select *from "IssueTicket" where "IssueTicketId"=26132
 
-update "IssueTicket" set "Remark"='[¸½¼Ó±¸×¢]:¿ÍÈËÖ±½ÓÔ¤¶¨£¬¿ÍÈËId£ºzhuqing@neusoft.com,¿ÍÈËÐÕÃû£ºÖìÇä' where "IssueTicketId"=26132
+update "IssueTicket" set "Remark"='[é™„åŠ å¤‡æ³¨]:å®¢äººç›´æŽ¥é¢„å®šï¼Œå®¢äººIdï¼šzhuqing@neusoft.com,å®¢äººå§“åï¼šæœ±å¿' where "IssueTicketId"=26132
 
 select *from "PassengerIntergration" where "IssueTicketId"=26132
 
-update "PassengerIntergration" set "AirSegments"='[{"AirSegmentId":30596,"FlightNumber":"MU563","Space":"B","SpaceDesc":"¾­¼Ã²Õ","DepartureTime":"2016-04-07T16:20:00","ArrivalTime":"2016-04-07T18:40:00","DeparturePlace":"±±¾©","ArrivalPlace":"ÉÏº£","DepartureTerminal":"T2","ArrivalTerminal":"T1","NumberOfPlace":0,"PNRId":27183,"PlaceDesc":null,"DeparturePlaceCode":"PEK","ArrivalPlaceCode":"PVG","CompareCode":"8001df1d18a9e78e4d63ddc14d74f056"}]
+update "PassengerIntergration" set "AirSegments"='[{"AirSegmentId":30596,"FlightNumber":"MU563","Space":"B","SpaceDesc":"ç»æµŽèˆ±","DepartureTime":"2016-04-07T16:20:00","ArrivalTime":"2016-04-07T18:40:00","DeparturePlace":"åŒ—äº¬","ArrivalPlace":"ä¸Šæµ·","DepartureTerminal":"T2","ArrivalTerminal":"T1","NumberOfPlace":0,"PNRId":27183,"PlaceDesc":null,"DeparturePlaceCode":"PEK","ArrivalPlaceCode":"PVG","CompareCode":"8001df1d18a9e78e4d63ddc14d74f056"}]
 ' where "IssueTicketId"=26132
 select *from "Passenger" where "PassengerId"=58448
-update "Passenger" set "Name"='ÖìÇä',"CertificateType"='Éí·ÝÖ¤' where "PassengerId"=58448
+update "Passenger" set "Name"='æœ±å¿',"CertificateType"='èº«ä»½è¯' where "PassengerId"=58448
 
 
---¿ç¿â²éÑ¯
-select "OrderId" ¶©µ¥±àºÅ ,"GroupNumber" ÍÅºÅ ,"Sales"->>'Name' ÏúÊÛ ,"Sales"->>'OrgName' ¶©µ¥²¿ÃÅ ,org_name Êµ¼Ê²¿ÃÅ ,"Creator"->>'Name' ´´½¨ÈË 
+--è·¨åº“æŸ¥è¯¢
+select "OrderId" è®¢å•ç¼–å· ,"GroupNumber" å›¢å· ,"Sales"->>'Name' é”€å”® ,"Sales"->>'OrgName' è®¢å•éƒ¨é—¨ ,org_name å®žé™…éƒ¨é—¨ ,"Creator"->>'Name' åˆ›å»ºäºº 
  ,(case "Status"
- 	when 1 then '´ýÔ¤¶¨'
- 	when 2 then 'ÒÑÔ¤¶¨'
- 	when 4 then 'ÒÑÈ¡Ïû'
- 	when 32 then 'ÒÑ¾Ü¾ø'
- 	when  256 then '¼Æ»®Î»´ýÉóºË'
-   end) ×´Ì¬
+ 	when 1 then 'å¾…é¢„å®š'
+ 	when 2 then 'å·²é¢„å®š'
+ 	when 4 then 'å·²å–æ¶ˆ'
+ 	when 32 then 'å·²æ‹’ç»'
+ 	when  256 then 'è®¡åˆ’ä½å¾…å®¡æ ¸'
+   end) çŠ¶æ€
   ,(case "Type"
-  	when 5 then '¹úÄÚÍÅ¶Ó'
-  	when 6 then '¹úÄÚÉ¢¿Í'
-  	when 9 then '³ö¾³ÍÅ¶Ó'
-  	when 10 then '³ö¾³É¢¿Í'
-  	when 50 then '¼Æ»®Î»'
-  end) ¶©µ¥Àà±ð
+  	when 5 then 'å›½å†…å›¢é˜Ÿ'
+  	when 6 then 'å›½å†…æ•£å®¢'
+  	when 9 then 'å‡ºå¢ƒå›¢é˜Ÿ'
+  	when 10 then 'å‡ºå¢ƒæ•£å®¢'
+  	when 50 then 'è®¡åˆ’ä½'
+  end) è®¢å•ç±»åˆ«
 from "Order" od
 inner join dblink('dbname=ontheway_web_shanshui','select em.id,org_id,org.name from employee em inner join organization org on org.id = org_id') as em(id integer ,org_id integer ,org_name text)
 on (od."Sales"->>'Id')::integer = id and (od."Sales"->>'OrgId')::integer <> org_id
 where not exists (select true from "IssueTicket" it where it."OrderId" = od."OrderId")
 and not exists (select true from "ProfitSheet" ps where od."OrderId" = ps."OrderId")
 
----ÍËÆ±½áËã ÊÕÖ§Ã÷Ï¸
+---é€€ç¥¨ç»“ç®— æ”¶æ”¯æ˜Žç»†
 
 select * from "CustomerChargeOffs"  where "Id" in(1136,1138)
 
-update "CustomerChargeOffs" set "Status"=2 ,"AuditInfo"='{"Remark": null, "Auditor": {"Id": 8176, "Name": "ÀîÎ°¾ê", "OrgId": 827, "RootId": 0, "OrgName": "±±¾©ÔÚÂ·ÉÏ", "OrgTree": null}, "Opinion": 1, "AuditTime": "2016-03-31 19:23"}'
+update "CustomerChargeOffs" set "Status"=2 ,"AuditInfo"='{"Remark": null, "Auditor": {"Id": 8176, "Name": "æŽä¼Ÿå¨Ÿ", "OrgId": 827, "RootId": 0, "OrgName": "åŒ—äº¬åœ¨è·¯ä¸Š", "OrgTree": null}, "Opinion": 1, "AuditTime": "2016-03-31 19:23"}'
 ,"WorkflowId"=19922 where "Id"=1136
 
 select *from  debit_note where "Id"=1613
@@ -84,44 +84,17 @@ select *from "AccountDetails"  where "ObjId"=26717 and "Id"=13738
 
 delete from "AccountDetails" where   "ObjId"=26717 and "Id"=20260
 INSERT INTO "AccountDetails" ("Earning","Expenditure","Amount","CreationTime","ObjId","ObjName","ObjType","Comment","Category","SheetId","FreezeEarning","FreezeExpenditure","FreezeAmount","Sort","CreatorName")
- VALUES (0.00,1410.32,36983.93,'2016/04/07 11:48:39.7170230',26717,'½ñÍ¨¹ú¼Ê',2,'Ñî¶«Áø(²Ù×÷)¶Ô¿Í»§ÍË¿î_¼¼Êõ´¦Àí',5,1136,0.00,0.00,0.00,1,NULL);
+ VALUES (0.00,1410.32,36983.93,'2016/04/07 11:48:39.7170230',26717,'ä»Šé€šå›½é™…',2,'æ¨ä¸œæŸ³(æ“ä½œ)å¯¹å®¢æˆ·é€€æ¬¾_æŠ€æœ¯å¤„ç†',5,1136,0.00,0.00,0.00,1,NULL);
  
  select *from "Account"  where "ObjId"=26717
  
  update "Account" set "Amount"=36983.93 where "ObjId"=26717
 
---- ÐÞ¸ÄÀàÐÍ
+--- ä¿®æ”¹ç±»åž‹
 
 alter table nsq_log alter column operatorinfo type character varying(254)  using operatorinfo ::jsonb
 
 
----»ñÈ¡pnrÖÐ³Ë¿ÍÐÅÏ¢
+---èŽ·å–pnrä¸­ä¹˜å®¢ä¿¡æ¯
 select array_to_string((select array(select json_array_elements(unnest("PNR")->'Passenger')->>'Name' from "TheTickets" where "Id" = 105037)),',')
 
-
-1.ÃÀ²ËÍø¶©µ¥²éÑ¯£º½â¾ö³É±¾ÖÐÐÄ¡¢²¿ÃÅÃû³Æ×Ö¶ÎµÄ TMC DBµÄ´æ´¢
-2.TMC »ùÓÚTask Òì²½»º´æµÄÎÊÌâ
-3.TMC ·Ö²¼Ê½ÊÂÎñµÄ´¦Àí
-4.fluentvalidationÑéÖ¤ÀàµÄÊ¹ÓÃ
-5.´úÂëÖØ¹¹ÓëÌáÈ¡
-6.IBE+³öÆ±·þÎñÄ£¿éµÄ³éÀë
-
-
-±¾ÖÜ¹¤×÷£º
-Ð­Öú´¦ÀíÆ½Ì¨¹¤×÷(ÖÜÒ»ÖÜ¶þ)
-tps:
-1.¸üÐÂ°æ±¾£¬½â¾ört º½°àÊ±¼ä²»×¼È·µÄÎÊÌâ
-2.ÑÐ¾¿pnr²»ÔÚtpsÖÐµÄÔ­Òò
-3.Ð­ÖúÆ±Ì¨´¦ÀípidÕËºÅ¼°ÅäÖÃ±¾µØµÄpid
-tmc:
-4.½â¾ö m1×Ó²ÕÎ»²»ÄÜÕ¼×ùµÄÎÊÌâ
-5.ÖÐÐËÏµÍ³Ã»ÓÐº½±äÍ¨Öª------>Í¨¹ýibe¹ØÓÚpnr±ä¸ü½Ó¿Ú»ñÈ¡
-6.¹²Ïíº½°àÎÞ·¨Ô¤¶¨µÄÎÊÌâ---->ÓÉÓÚÌá¹©µÄpnrÒÑÎÞ·¨²âÊÔ£¬¼ÌÐø¸ú×ÙÖÐ
-7.pnr·ÖÀëÊ§°ÜµÄÎÊÌâ------>ibeºóÌ¨ÒÑÐÞ¸´£¬¿ÉÒÔÊ¹ÓÃÁË
-8.Óëibe×ÉÑ¯¹ØÓÚÍù·µÍ¬Ò»º½Ë¾¼°²»Í¬º½Ë¾µÄÔ¤¶¨pnrµÄÎÊÌâ
- È·ÈÏÎÒÃÇµÄ½â¾ö·½°¸£¨Í¬Ë¾Ò»¸öpnr,²»Í¬Á½¸öpnr£©
-9.×Ô¶¯³öÆ±ÌáÊ¾ÂÃ¿ÍÐòºÅ²»Í¬µÄÎÊÌâ---ibeºóÌ¨ÕýÔÚÐÞ¸Ä
-
-ÏÂÖÜ¹¤×÷£º
-1.´¦ÀíÇñ×ÜÌá³öµÄÈý¸öÎÊÌâ
-2.tmcÎÊÌâµÄ¸ú½ø(¹²Ïíº½°à¡¢·ÖÀëpnr¡¢³öÆ±ÂÃ¿ÍÐòºÅ¡¢´òÆ±»úºÅ)
