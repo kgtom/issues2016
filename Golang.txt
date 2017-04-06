@@ -1,0 +1,10 @@
+第一个： 在使用vscode时遇到代码自动补全“失灵”的问题。vscode-go只会提示：”PANIC,PANIC,PANIC”。经查，这个是gocode daemon的问题
+解决：
+If something went wrong, the first thing you may want to do is manually start the gocode daemon with a debug mode enabled and in a separate terminal window. It will show you all the stack traces, panics if any and additional info about autocompletion requests. Shutdown the daemon if it was already started and run a new one explicitly with a debug mode enabled:
+
+gocode close
+
+gocode -s -debug
+
+Please, report bugs, feature suggestions and other rants to the github issue tracker of this project.
+from:https://github.com/nsf/gocode
