@@ -1,2 +1,2 @@
 第一个：Octotree
-作用：Code tree for GitHub ,from :google extensions
+作用：Code tree for GitHub ,from :chrome extensions
