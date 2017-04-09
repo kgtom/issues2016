@@ -1,0 +1,4 @@
+第一个 redis in centos7 ,容易忽略的地方:
+
+最关键的是:配置文件压根就没有生效，正确的启动方法是加上这个配置文件才会生效
+./src/redis-server redis.conf
