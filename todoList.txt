@@ -1,0 +1,10 @@
+
+1.GitHub's Online Schema Migrations for MySQL
+https://github.com/github/gh-ost
+
+2. 函数参数传值, 闭包传引用!
+slice 含 values/count/capacity 等信息, 是按值传递
+按值传递的 slice 只能修改values指向的数据, 其他都不能修改
+slice 是结构体和指针的混合体
+引用类型和传引用是两个概念
+https://my.oschina.net/chai2010/blog/161384
