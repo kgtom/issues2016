@@ -8,3 +8,8 @@ slice 含 values/count/capacity 等信息, 是按值传递
 slice 是结构体和指针的混合体
 引用类型和传引用是两个概念
 https://my.oschina.net/chai2010/blog/161384
+
+3.spark sql 应用与 查询统计log表数据 use python
+
+4.将go 部署到docker中使用
+
