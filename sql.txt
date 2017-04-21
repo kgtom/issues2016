@@ -98,3 +98,13 @@ alter table nsq_log alter column operatorinfo type character varying(254)  using
 ---获取pnr中乘客信息
 select array_to_string((select array(select json_array_elements(unnest("PNR")->'Passenger')->>'Name' from "TheTickets" where "Id" = 105037)),',')
 
+
+--查询重复
+ select  distinct  ticket_num,event_category ,count(*) from tsl  group by ticket_num,event_category having count(*)>1 
+ --保留的数据
+ select id,ticket_num,event_category  from tsl where id in(select  min(id) from tsl group by ticket_num,event_category)
+ --删除重复的
+ delete from tsl where id not in (select  min(id) from tsl group by ticket_num,event_category)
+ 
+ --删除重复 用于数据量大的场景
+ delete from  tsl a where a.id<>(select min(id) from tsl b where a.ticket_num=b.ticket_num and a.event_category=b.event_category)
