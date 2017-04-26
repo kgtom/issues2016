@@ -13,3 +13,6 @@ https://my.oschina.net/chai2010/blog/161384
 
 4.将go 部署到docker中使用
 
+5.sqlx的体验
+https://github.com/jmoiron/sqlx
+
