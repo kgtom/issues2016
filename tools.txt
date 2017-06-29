@@ -1,2 +1,5 @@
 第一个：Octotree
 作用：Code tree for GitHub ,from :chrome extensions
+
+第二个  SwitchyOmega
+下载 crx文件地址：https://github.com/FelisCatus/SwitchyOmega/releases
