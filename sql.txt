@@ -4,7 +4,7 @@ ALTER SEQUENCE "Supplier_SupplierId_seq" RESTART WITH 1
 ---利润统计表导出(含人数)
 select "Id" 利润单号,"ObjId" 业务单号 ,"Supplier"->>'Name' 供应商,"PayType"->>'Name' 支付方式
 	,(case "Type"
-		when 5 then '国内团队'
+		when 5 then '国内团队' 
 		when 6 then '国内散客'
 		when 9 then '出境团队'
 		when 10 then '出境散客'
@@ -34,17 +34,7 @@ select "Id" 利润单号,"ObjId" 业务单号 ,"Supplier"->>'Name' 供应商,"Pa
 from "TheTickets"
 where date("IssueTime") between date'2016-01-01' and date'2016-03-31'
 
--- 修改 推送 乱码
-select *from "IssueTicket" where "IssueTicketId"=26132
 
-update "IssueTicket" set "Remark"='[附加备注]:客人直接预定，客人Id：zhuqing@neusoft.com,客人姓名：朱卿' where "IssueTicketId"=26132
-
-select *from "PassengerIntergration" where "IssueTicketId"=26132
-
-update "PassengerIntergration" set "AirSegments"='[{"AirSegmentId":30596,"FlightNumber":"MU563","Space":"B","SpaceDesc":"经济舱","DepartureTime":"2016-04-07T16:20:00","ArrivalTime":"2016-04-07T18:40:00","DeparturePlace":"北京","ArrivalPlace":"上海","DepartureTerminal":"T2","ArrivalTerminal":"T1","NumberOfPlace":0,"PNRId":27183,"PlaceDesc":null,"DeparturePlaceCode":"PEK","ArrivalPlaceCode":"PVG","CompareCode":"8001df1d18a9e78e4d63ddc14d74f056"}]
-' where "IssueTicketId"=26132
-select *from "Passenger" where "PassengerId"=58448
-update "Passenger" set "Name"='朱卿',"CertificateType"='身份证' where "PassengerId"=58448
 
 
 --跨库查询
@@ -73,7 +63,7 @@ and not exists (select true from "ProfitSheet" ps where od."OrderId" = ps."Order
 
 select * from "CustomerChargeOffs"  where "Id" in(1136,1138)
 
-update "CustomerChargeOffs" set "Status"=2 ,"AuditInfo"='{"Remark": null, "Auditor": {"Id": 8176, "Name": "李伟娟", "OrgId": 827, "RootId": 0, "OrgName": "北京在路上", "OrgTree": null}, "Opinion": 1, "AuditTime": "2016-03-31 19:23"}'
+update "CustomerChargeOffs" set "Status"=2 ,"AuditInfo"='{"Remark": null, "Auditor": {"Id": 8176, "Name": "李伟", "OrgId": 827, "RootId": 0, "OrgName": "otw", "OrgTree": null}, "Opinion": 1, "AuditTime": "2016-03-31 19:23"}'
 ,"WorkflowId"=19922 where "Id"=1136
 
 select *from  debit_note where "Id"=1613
@@ -84,7 +74,7 @@ select *from "AccountDetails"  where "ObjId"=26717 and "Id"=13738
 
 delete from "AccountDetails" where   "ObjId"=26717 and "Id"=20260
 INSERT INTO "AccountDetails" ("Earning","Expenditure","Amount","CreationTime","ObjId","ObjName","ObjType","Comment","Category","SheetId","FreezeEarning","FreezeExpenditure","FreezeAmount","Sort","CreatorName")
- VALUES (0.00,1410.32,36983.93,'2016/04/07 11:48:39.7170230',26717,'今通国际',2,'杨东柳(操作)对客户退款_技术处理',5,1136,0.00,0.00,0.00,1,NULL);
+ VALUES (0.00,1410.32,36983.93,'2016/04/07 11:48:39.7170230',26717,'otw',2,'tom(操作)对客户退款_技术处理',5,1136,0.00,0.00,0.00,1,NULL);
  
  select *from "Account"  where "ObjId"=26717
  
